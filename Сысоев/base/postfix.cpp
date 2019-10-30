@@ -115,6 +115,7 @@ double TPostfix::Calculate()
 		if (!(isNumber(word) || priority[word] != 0))
 			Alt.push_back(word);
 	}
+	if (Alt.size()!=0)
 	cout << "В выражении имеется " << Alt.size() << " переменных (вот они справа налево) : " << endl;
 	for (int i = 0; i < Alt.size(); i++)
 	{
@@ -123,6 +124,7 @@ double TPostfix::Calculate()
 		else
 			cout << Alt[i] << endl;
 	}
+	if (Alt.size() != 0)
 	cout << "Введите переменные:" << endl;
 	for (int i = 0; i < Alt.size(); i++)
 	{
@@ -216,31 +218,24 @@ bool TPostfix::isNumber(const string &a)
 }
 bool TPostfix::isAlt(const string &a)
 {
-	int check = 0;
 	for (int i = 0; i < a.length(); i++)
 	{
 		if (i == 0)
-			if (!((a[i] >= 48) && (a[i] <= 57)))
+			if (!((a[i] >= 65 && a[i] <= 90) || (a[i] >= 97 && a[i] <= 122)))
 				return 0;
 			else {}
-		else {
-			if (!((a[i] >= 48) && (a[i] <= 57) || (a[i] == 46)))
+		else
+		{
+			if (!((a[i] >= 65 && a[i] <= 90) || (a[i] >= 97 && a[i] <= 122) || (a[i] >= 48) && a[i] <= 57))
 				return 0;
-			else
-			{
-				if (a[i] == 46)
-					check += 1;
-			}
 		}
 	}
-	if (check > 1)
-		return 0;
 	return 1;
 }
 void TPostfix::isCorrectInfix()
 {
 	string str = Infix2Space();
-	vector <int> skb;
+	int skb=0;
 	string LastWord, word;
 	int check = 0;
 	for (stringstream is(str); is >> word;)
@@ -252,7 +247,7 @@ void TPostfix::isCorrectInfix()
 					throw 1;
 				else
 					if (priority[word] == 1)
-						skb.push_back(1);
+						skb++;
 			}
 
 			else {
@@ -265,9 +260,11 @@ void TPostfix::isCorrectInfix()
 			if (priority[word] != 0)
 			{
 				if (priority[word] == 1)
-					skb.push_back(1);
+					skb++;
 				if (priority[word] == -1)
-					skb.pop_back();
+					skb--;
+				if (skb < 0)
+					throw 1;
 				if (priority[LastWord] != 0)
 				{
 					if (priority[LastWord] == 1)
@@ -317,6 +314,6 @@ void TPostfix::isCorrectInfix()
 		}
 		LastWord = word;
 	}
-	if (skb.size() != 0)
+	if (skb!= 0)
 		throw 1;
 }

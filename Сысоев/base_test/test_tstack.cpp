@@ -13,7 +13,7 @@ TEST(TStack, can_check_empty)
 TEST(TStack, can_check_full)
 {
 	TStack<int>st;
-	for (int i = 0; i < MaxStackSize - 1; i++)
+	for (int i = 0; i < MaxStackSize ; i++)
 		st.push(0);
 	EXPECT_EQ(1, st.isFull());
 }
@@ -26,7 +26,7 @@ TEST(TStack, can_push)
 TEST(TStack, throw_when_try_push_to_full_stack)
 {
 	TStack<int>st;
-	for (int i = 0; i < MaxStackSize - 1; i++)
+	for (int i = 0; i < MaxStackSize; i++)
 		st.push(0);
 	ASSERT_ANY_THROW(st.push(0));
 }

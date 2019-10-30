@@ -62,10 +62,10 @@ TEST(TPostfix, throw_when_try_to_postfix_with_incorrect_number_of_brackets)
 	pf.SetInfix(a);
 	ASSERT_ANY_THROW(pf.ToPostfix());
 }
-TEST(TPostfix, throw_when_try_to_postfix_with_)
+TEST(TPostfix, throw_when_try_to_postfix_with_op_after_open_bracket)
 {
 	TPostfix pf;
-	string a = { "a+a" };
+	string a = { "a+(+a)" };
 	pf.SetInfix(a);
 	ASSERT_ANY_THROW(pf.ToPostfix());
 }
@@ -74,27 +74,6 @@ TEST(TPostfix, can_calculate)
 	TPostfix pf;
 	string a = { "2+3+4+1" };
 	pf.SetInfix(a);
+	pf.ToPostfix();
 	EXPECT_EQ(10,pf.Calculate());
 }
-TEST(TPostfix, <>)
-{
-	TPostfix pf;
-	string a = { "a+a" };
-	pf.SetInfix(a);
-	ASSERT_NO_THROW(pf.ToPostfix());
-}
-TEST(TPostfix, <>)
-{
-	TPostfix pf;
-	string a = { "a+a" };
-	pf.SetInfix(a);
-	ASSERT_NO_THROW(pf.ToPostfix());
-}
-TEST(TPostfix, <>)
-{
-	TPostfix pf;
-	string a = { "a+a" };
-	pf.SetInfix(a);
-	ASSERT_NO_THROW(pf.ToPostfix());
-}
-
