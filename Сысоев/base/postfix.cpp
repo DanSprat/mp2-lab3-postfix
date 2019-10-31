@@ -71,7 +71,7 @@ string TPostfix::Infix2Space()
 		else
 		{
 			d = infix[i];
-			if (((infix[i] >= 40) && (infix[i] <= 47) && (infix[i] != 46) && (infix[i] != 44)) || infix[i] == 94)
+			if (((infix[i] >= 40) && (infix[i] <= 47) && (infix[i] != 46) && (infix[i] != 44)))
 			{
 				if (word.length() == 0)
 				{
@@ -186,7 +186,11 @@ double TPostfix::Calculate()
 				Calculus.push(cos(Calculus.pop()));
 				break;
 			}
-
+			case 7:
+			{
+				Calculus.push(log(Calculus.pop()));
+				break;
+			}
 			}
 		}
 	}
@@ -270,8 +274,6 @@ void TPostfix::isCorrectInfix()
 					if (priority[LastWord] == 1)
 						if (!(priority[word] == 1 || priority[word] == 2))
 							throw 1;
-
-
 					if (priority[LastWord] == -1)
 						if (!(priority[word] == 3 || priority[word] == 4 || priority[word] == -1))
 							throw 1;
@@ -307,8 +309,6 @@ void TPostfix::isCorrectInfix()
 						if (priority[LastWord] == -1 || priority[LastWord] == 2)
 							throw 1;
 					}
-
-
 				}
 			}
 		}

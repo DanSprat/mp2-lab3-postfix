@@ -81,11 +81,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="sample_postfix.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="postfix.h" />
     <ClInclude Include="stack.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="postfix.cpp" />
+    <ClCompile Include="sample_postfix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
