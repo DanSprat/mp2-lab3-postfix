@@ -69,6 +69,20 @@ TEST(TPostfix, throw_when_try_to_postfix_with_op_after_open_bracket)
 	pf.SetInfix(a);
 	ASSERT_ANY_THROW(pf.ToPostfix());
 }
+TEST(TPostfix, can_write_minus_in_start_of_line)
+{
+	TPostfix pf;
+	string a = { "-sin(x)" };
+	pf.SetInfix(a);
+	EXPECT_EQ("0 x sin - ",pf.ToPostfix());
+}
+TEST(TPostfix, can_write_minus_in_after_open_bracket)
+{
+	TPostfix pf;
+	string a = { "(-sin(x))" };
+	pf.SetInfix(a);
+	EXPECT_EQ("0 x sin - ", pf.ToPostfix());
+}
 TEST(TPostfix, can_calculate)
 {
 	TPostfix pf;

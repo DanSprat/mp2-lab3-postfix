@@ -73,8 +73,27 @@ string TPostfix::Infix2Space()
 			d = infix[i];
 			if (((infix[i] >= 40) && (infix[i] <= 47) && (infix[i] != 46) && (infix[i] != 44)))
 			{
+				if (infix[i] == 45)
+				{
+					if (i == 0)
+					{
+						d = "0";
+						infix.insert(0, "0");
+					}
+					else {
+						int j = i-1;
+						while (infix[j] == ' ')
+							j--;
+						if (infix[j] == 40)
+						{
+							d = "0";
+							infix.insert(i, "0");
+						}
+					}
+				}
 				if (word.length() == 0)
 				{
+					
 					if (i == (infix.length() - 1))
 						TInfix += (d);
 					else
@@ -113,7 +132,18 @@ double TPostfix::Calculate()
 	for (stringstream is(postfix); is >> word;)
 	{
 		if (!(isNumber(word) || priority[word] != 0))
-			Alt.push_back(word);
+		{
+			vector <string>::iterator it = Alt.begin();
+			while (it != Alt.end())
+			{
+				
+				if (*it == word)
+					break;
+				it++;
+			}
+			if (it == Alt.end() || Alt.empty())
+				Alt.push_back(word);
+		}
 	}
 	if (Alt.size()!=0)
 	cout << "В выражении имеется " << Alt.size() << " переменных (вот они справа налево) : " << endl;
